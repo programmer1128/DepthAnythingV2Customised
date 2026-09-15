@@ -1,0 +1,7 @@
+# Ignore ONNX model files and heavy binary data
+*.onnx
+*.onnx.data
+checkpoints/
+openvino_env/
+build/
+__pycache__/
