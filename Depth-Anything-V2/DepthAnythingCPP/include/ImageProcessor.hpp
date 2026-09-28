@@ -2,6 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <immintrin.h>
+#include <string>
 
 class ImageProcessor {
 public:
@@ -9,12 +10,16 @@ public:
     static constexpr int TARGET_HEIGHT = 518;
     static constexpr int CHANNELS = 3;
 
-    // Normalizes, transposes HWC->CHW, and loads into output buffer using AVX2 + multithreading
+    // Preprocessing
     static void preprocess(const cv::Mat& src, std::vector<float>& dst_tensor);
 
-    // Converts raw float depth map back into visual colorized depth map
+    // Height Map Postprocessing
     static cv::Mat postprocess(const float* raw_depth, int orig_w, int orig_h);
-   static void saveResizedDepthToBin(const float* raw_depth, int orig_w, int orig_h, const std::string& filepath);
+    static void saveResizedDepthToBin(const float* raw_depth, int orig_w, int orig_h, const std::string& filepath);
+
+    // Confidence Map Postprocessing (NEW)
+    static cv::Mat postprocessConfidence(const float* raw_conf, int orig_w, int orig_h);
+    static void saveResizedConfidenceToBin(const float* raw_conf, int orig_w, int orig_h, const std::string& filepath);
 
 private:
     // Worker function: processes a slice of rows on a dedicated thread

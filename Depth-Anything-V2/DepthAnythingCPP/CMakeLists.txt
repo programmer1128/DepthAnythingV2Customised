@@ -17,7 +17,9 @@ include_directories(
     ${OpenCV_INCLUDE_DIRS}
     ${ORT_DIR}/include
 )
-link_directories("/home/aritra/Desktop/OptimisingDepthAnythingV2/Depth-Anything-V2/DepthAnythingCPP/openvino_env/lib64/python3.13/site-packages/onnxruntime/capi")
+link_directories(
+    "${CMAKE_CURRENT_SOURCE_DIR}/openvino_env/lib64/python3.13/site-packages/onnxruntime/capi"
+)
 
 #Executable
 add_executable(depth_pipeline
